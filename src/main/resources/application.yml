@@ -1,0 +1,22 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-ui
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dockerTest
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+secrets:
+  SONAR_HOST_URL: http://localhost:9000/
+  SONAR_TOKEN: sqa_2517b134edc55ea11f20436d4c11f3a99392a58a
