@@ -1,4 +1,21 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+  elasticsearch:
+    rest:
+
+      indices:
+        auto-create: true  # Permet à Spring de créer automatiquement l'index
+      uris: http://localhost:9200  # L'URL de votre instance Elasticsearch
+    cluster-name: my-elasticsearch
+    connection-timeout: 3s
+    socket-timeout: 3s
+
   h2:
     console:
       enabled: true
@@ -17,6 +34,22 @@ spring:
     hibernate:
       ddl-auto: update
 
+
+
+
 secrets:
   SONAR_HOST_URL: http://localhost:9000/
   SONAR_TOKEN: sqa_2517b134edc55ea11f20436d4c11f3a99392a58a
+server:
+  port: 8081
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+security:
+  jwt:
+    secret-key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+    expiration-time: 3600000 # 1 hour in milliseconds
+
+

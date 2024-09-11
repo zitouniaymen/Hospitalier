@@ -1,0 +1,35 @@
+version: "3.1"
+
+services:
+  db-minot-postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: minot
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - minot-network
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: amazoncorretto
+    depends_on:
+      - db-minot-postgres
+    environment:
+      SPRING_DATASOURCE_DB: minotaur
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-minotaur-postgres:5432/minot
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8080:8080"
+    networks:
+      - minot-network
+
+networks:
+  minot-network:
